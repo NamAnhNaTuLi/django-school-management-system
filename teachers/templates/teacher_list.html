@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Danh sach giao vien</title>
+{% endblock %}
+
+{% block header_static %}
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Danh sach giao vien</h1>
+        <p class="mb-4">Tong so giao vien: {{ teacher_list.count }}</p>
+
+        {% if perms.teachers.add_teacher %}
+        <a class="collapse-item" href="{% url 'teachers:teacher-create' %}">Them giao vien</a>
+        {% endif %}
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ho va ten</th>
+                                <th>Khoa</th>
+                                <th>Bo mon</th>
+                                <th>Lop chu nhiem</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ho va ten</th>
+                                <th>Khoa</th>
+                                <th>Bo mon</th>
+                                <th>Lop chu nhiem</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for teacher in teacher_list %}
+                        <tr>
+                            <td>{{ teacher.id }}</td>
+                            <td><a {% if perms.teachers.view_teacher %} href="{{ teacher.get_absolute_url }}" {% endif %}>{{ teacher.name }}</a></td>
+                            <td>{{ teacher.khoa }}</td>
+                            <td>{{ teacher.bo_mon }}</td>
+                            <td>{{ teacher.class_set.all|join:', ' }}</td>
+                            <td>{% if perms.teachers.change_teacher %}<a class="" href="{% url 'teachers:teacher-update' teacher.id %}">Cap nhat</a>{% endif %} {% if perms.teachers.delete_teacher %}| <a class="" href="{% url 'teachers:teacher-delete' teacher.id %}">Xoa</a>{% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_static %}
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}

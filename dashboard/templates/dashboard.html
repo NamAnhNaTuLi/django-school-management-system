@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Trang chu</title>
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Hoc sinh Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                So hoc sinh</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ num_student }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-address-card fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                        <a href="{% url 'students:student_list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Lop hoc Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                So lop hoc</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ num_class }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                        <a href="{% url 'classes:class-list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lop hoc Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                So mon hoc</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ num_subject }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-book fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                        <a href="{% url 'subjects:subject_list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                So giao vien</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ num_teacher }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                        <a href="{% url 'teachers:teacher-list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!-- Student - Teacher Chart -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Hoc sinh va Giao vien</h6>
+
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Tuy chon:</div>
+                            <a class="dropdown-item" href="{% url 'students:student_list' %}">Danh sach hoc sinh</a>
+                            <a class="dropdown-item" href="{% url 'teachers:teacher-list' %}">Danh sach giao vien</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body" style="min-height: 330px; height: 300px; max-height: 250px; max-width: 100%;">
+                    <div class="chart-pie">
+                        <canvas id="StudentTeacherPieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student gender Chart -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Hoc sinh</h6>
+
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Tuy chon:</div>
+                            <a class="dropdown-item" href="{% url 'students:student_list' %}">Danh sach hoc sinh</a>
+                            <a class="dropdown-item" href="{% url 'students:student_create' %}">Them hoc sinh</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body" style="min-height: 330px; height: 300px; max-height: 250px; max-width: 100%;">
+                    <div class="chart-pie">
+                        <canvas id="StudentGenderPieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <!-- Students in grade Chart -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Hoc sinh cac khoi</h6>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="StudentGradePieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students in Panel Chart -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Hoc sinh cac ban</h6>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="StudentPanelPieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block custom_js %}
+<script>
+    {#Student - Teacher Chart#}
+    const studentAndTeacher = document.getElementById("StudentTeacherPieChart").getContext('2d');
+    const studentAndTeacherChart = new Chart(studentAndTeacher, {
+        type: 'pie',
+        data: {
+            labels: ["Hoc sinh", "Giao vien"],
+            datasets: [{
+                data: [{{ num_student }}, {{ num_teacher }}],
+                backgroundColor: ["#F7464A", "#46BFBD"],
+                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1"]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    {#Student gender chart#}
+    const studentGender = document.getElementById("StudentGenderPieChart").getContext('2d');
+    const studentGenderChart = new Chart(studentGender, {
+        type: 'doughnut',
+        data: {
+            labels: ["Nam", "Nu", 'Khac'],
+            datasets: [{
+                data: {{ gender_list }},
+                backgroundColor: ["#FDB45C", "#949FB1", "#4D5360"],
+                hoverBackgroundColor: ["#FFC870", "#A8B3C5", "#616774"]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    {#Student - Grade Chart#}
+    const studentGrade = document.getElementById("StudentGradePieChart").getContext('2d');
+    const studentGradeChart = new Chart(studentGrade, {
+        type: 'pie',
+        data: {
+            labels: {{ grade_name_list|safe }},
+            datasets: [{
+                data: {{ student_in_grade_count_list }},
+                backgroundColor: ["#0311ff", "#1ab5b4", "#ff4a32"],
+                hoverBackgroundColor: ["#5861ff", "#1fd2d1", "#ff7765"]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    {#Student - Panel Chart#}
+    const studentPanel = document.getElementById("StudentPanelPieChart").getContext('2d');
+    const studentPanelChart = new Chart(studentPanel, {
+        type: 'pie',
+        data: {
+            labels: {{ panel_list_name|safe }},
+            datasets: [{
+                data: {{ student_in_panel_count_list }},
+                backgroundColor: ["#913a90", "#ffc52d", "#33f131"],
+                hoverBackgroundColor: ["#b548b4", "#ffce4f", "#52f351"]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+</script>
+
+{% endblock %}
+

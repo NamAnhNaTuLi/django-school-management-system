@@ -1,0 +1,13 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:7000
+From: webmaster@localhost
+To: tranbeeanh@gmail.com
+Date: Tue, 13 Jul 2021 11:56:52 -0000
+Message-ID: <162617741289.7572.9434587936250426561@ANH-PC>
+
+Ai đó đã yêu cầu đặt lại mật khẩu cho email tranbeeanh@gmail.com. Theo liên kết dưới đây:
+http://127.0.0.1:7000/accounts/reset/Ng/apqnas-8139a5d3f19765c14d123580c4b76d85/
+
+-------------------------------------------------------------------------------

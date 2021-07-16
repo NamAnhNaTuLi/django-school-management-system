@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">Cap nhat diem hoc sinh {{ subjectscore.student }}</h4>
+            <p class="mb-0 font-weight-bold">Mon {{ subjectscore.subject }}</p>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <table>
+                {{ form.as_table }}
+                </table>
+                <input type="submit" value="Them diem" class="btn btn-primary btn-user">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

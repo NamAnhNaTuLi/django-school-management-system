@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">Xoa diem</h4>
+        </div>
+        <div class="card-body">
+            <p>Xoa diem mon {{ subjectscore.subject }} cua hoc sinh {{ subjectscore.student }}?</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <table>
+                {{ form.as_table }}
+                </table>
+                <input type="submit" value="Xoa" class="btn btn-primary btn-user">
+                <a href="{% url 'students:student-detail' subjectscore.student.id %}" class="btn btn-secondary btn-user">Huy</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

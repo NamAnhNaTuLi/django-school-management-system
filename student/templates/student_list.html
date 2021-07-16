@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Danh sach hoc sinh</title>
+{% endblock %}
+
+{% block header_static %}
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Danh sach hoc sinh</h1>
+        <p class="mb-4">Tong so hoc sinh: {{ student_list.count }}</p>
+
+        {% if perms.student.add_student %}
+        <a class="collapse-item" href="{% url 'students:student_create' %}">Them hoc sinh</a>
+        {% endif %}
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ho va ten dem</th>
+                                <th>Ten</th>
+                                <th>Gioi tinh</th>
+                                <th>Lop</th>
+                                <th>Ngay sinh</th>
+                                <th>Bang diem</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ho va ten dem</th>
+                                <th>Ten</th>
+                                <th>Gioi tinh</th>
+                                <th>Lop</th>
+                                <th>Ngay sinh</th>
+                                <th>Bang diem</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for student in student_list %}
+                        <tr>
+                            <td>{{ student.id }}</td>
+                            <td>{{ student.student_lastname }}</td>
+                            <td>{{ student.student_firstname }}</td>
+                            <td>{{ student.student_gender }}</td>
+                            <td>{{ student.student_class }}</td>
+                            <td>{{ student.student_date_of_birth|date:"d-m-Y" }}</td>
+                            <td><a {% if perms.student.view_student %} href="{{ student.get_absolute_url }}" {% endif %}>Chi tiet</a></td>
+                            <td>{% if perms.student.change_student %}<a class="" href="{% url 'students:student_update' student.id %}">Cap nhat</a>{% endif %} {% if perms.student.delete_student %}| <a class="" href="{% url 'students:student_delete' student.id %}">Xoa</a>{% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_static %}
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}

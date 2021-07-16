@@ -1,0 +1,13 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:7000
+From: webmaster@localhost
+To: teacher1@gmail.com
+Date: Tue, 13 Jul 2021 13:40:32 -0000
+Message-ID: <162618363256.9932.7347453964627841490@ANH-PC>
+
+Ai đó đã yêu cầu đặt lại mật khẩu cho email teacher1@gmail.com. Theo liên kết dưới đây:
+http://127.0.0.1:7000/setnewpassword/Mg/apqs3k-0d536864d274ebc46dbff71991bfc8ab/
+
+-------------------------------------------------------------------------------

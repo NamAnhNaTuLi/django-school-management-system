@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">Thong tin giao vien: {{ teacher.name }}</h4>
+        </div>
+        <div class="card-body">
+            <p>Khoa: {{ teacher.khoa }}</p>
+            <p>Bo mon: {{ teacher.bo_mon }}</p>
+        {#    <p>Lop phu trach: {{ teacher.lop_phu_trach.all|join:', ' }}</p>#}
+            <p>Chu nhiem: {{ teacher.class_set.all|join:', ' }}</p>
+            <p>{% if perms.teachers.change_teacher %}<a class="btn btn-primary btn-user" href="{% url 'teachers:teacher-update' teacher.id %}">Cap nhat</a>{% endif %} {% if perms.teachers.delete_teacher %} <a class="btn btn-danger btn-user" href="{% url 'teachers:teacher-delete' teacher.id %}">Xoa</a>{% endif %}
+        </div>
+    </div>
+{% endblock %}
